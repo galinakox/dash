@@ -8,22 +8,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
 
-import socket
-
-def check_internet_socket(host="8.8.8.8", port=53, timeout=3):
-    try:
-        socket.setdefaulttimeout(timeout)
-        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
-        return True
-    except socket.error as ex:
-        #print(f"Socket error: {ex}")
-        return False
-
-if check_internet_socket():
-    intstate = "Internet connection is available (via socket)."
-else:
-    intstate = "No internet connection (via socket)."
-
 # Считываем данные
 df = pd.read_csv('data/stockdata.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['Date'])
